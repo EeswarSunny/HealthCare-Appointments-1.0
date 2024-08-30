@@ -1,0 +1,98 @@
+/* Reset default margin and padding */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body styles */
+body {
+    background-image: url(https://cdn.pixabay.com/photo/2020/08/03/09/39/medical-5459630_1280.png);
+    background-size: cover;
+    background-position: center;
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    background-color: #f2f2f2;
+    height: 100vh;
+}
+
+/* Container styles */
+.container {
+
+    width: 400px;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+
+/* Register Section */
+#register, #login {
+    
+    width: fit-content;
+    display: flex;
+    margin-top: 100px;
+}
+.registerphoto{
+    margin-left: 150px;
+    padding: 10px 20px;
+}
+
+/* Form styles */
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+form label {
+    display: block;
+    font-weight: bolder;
+    margin-bottom: 5px;
+}
+
+input[type=email], input[type=password] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1.2em;
+    margin-top: 5px;
+}
+
+button {
+    background-color: #441231;
+    color: rgb(255, 255, 255);
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 1.2em;
+}
+
+.button:hover {
+    background-color: #54e932;
+}
+
+/* Forgot password link */
+.forgot-password {
+    text-align: right;
+    margin-top: 10px;
+}
+
+.forgot-password a {
+    color: #0e77d8;
+    text-decoration: none;
+}
+
+.forgot-password a:hover {
+    text-decoration: underline;
+    color: #000200;
+}
+.container h2{
+    text-align: center;
+}

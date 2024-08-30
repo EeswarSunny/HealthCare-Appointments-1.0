@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Arogya</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="./Assets/hospital-regular.svg">
+</head>
+<body>
+  <!-- navbar for hospital -->
+  <nav class="navbar">
+    <a href="./index.html" class="logo"><img src="./Assets/Screenshot from 2024-07-10 15-53-46.png" alt="" height="70px" style=" border-radius: 80%; background-position: -10px -10px;"></a>
+    <ul class="nav-links">
+        <li><a href="#book-appointments">Book Appointments</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#find-doctors">Find Doctors</a></li>
+        <li><a href="#security">Security</a></li> 
+        <li><a href="#about">About</a></li>
+        <li><a href="#contact">Contact</a></li>
+    </ul>
+    <div class="auth-buttons">
+        <a href="./login.html">Login</a>
+        <a href="./register.html">Signup</a>
+    </div>
+</nav>
+<!-- Header Section -->
+<header>
+  <div class="container">
+      <h1>Hospital Appointments</h1>
+      <p>Book your appointment online</p>
+  </div>
+</header>
+<!-- cards section-->
+<div class="card-container">
+    <a href="">
+        <div class="card">
+            <img src="https://cdn.pixabay.com/photo/2021/02/07/21/11/heart-5992758_1280.png" alt="">
+            <div class="card-content">
+                <h3>cardiologist</h3>
+                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Rerum excepturi, quod esse voluptas, commodi pariatur, delectus consequuntur 
+                    
+                </div>
+        </div>
+    </a>
+    <a href="">
+        <div class="card">
+            <img src="https://cdn.pixabay.com/photo/2020/09/26/23/56/brain-5605290_1280.png" alt="">
+            <div class="card-content">
+                <h3>Neurologist</h3>
+                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Rerum excepturi, quod esse voluptas, commodi pariatur, delectus consequuntur
+
+                </div>
+        </div>
+    </a>
+    <a href="">
+        <div class="card">
+            <img src="https://cdn.pixabay.com/photo/2021/12/07/11/31/dermatologist-6853066_1280.png" alt="">
+            <div class="card-content">
+                <h3>Dermotoloist</h3>
+                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Rerum excepturi, quod esse voluptas, commodi pariatur, delectus consequuntur 
+
+                </div>
+        </div>
+    </a>
+    <a href="">
+        <div class="card">
+            <img src="https://cdn.pixabay.com/photo/2012/04/25/01/15/metacarpals-41573_960_720.png" alt="">
+            <div class="card-content">
+                <h3>orthopedix</h3>
+                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Rerum excepturi, quod esse voluptas, commodi pariatur, delectus consequuntur 
+
+                </div>
+        </div>
+    </a>
+</div>
+
+<img src="https://picsum.photos/200/300" alt="">
+<!-- Appointment Form Section -->
+<section id="appointment">
+  <div class="container">
+      <h2>Book an Appointment</h2>
+      <form action="#" method="POST">
+          <div class="form-group">
+              <label for="name">Full Name</label>
+              <input type="text" id="name" name="name" required>
+          </div>
+          <div class="form-group">
+              <label for="email">Email Address</label>
+              <input type="email" id="email" name="email" required>
+          </div>
+          <div class="form-group">
+              <label for="phone">Phone Number</label>
+              <input type="tel" id="phone" name="phone" required>
+          </div>
+          <div class="form-group">
+              <label for="date">Preferred Date</label>
+              <input type="date" id="date" name="date" required>
+          </div>
+          <div class="form-group">
+              <label for="department">Department</label>
+              <select id="department" name="department" required>
+                  <option value="">Select Department</option>
+                  <option value="cardiology">Cardiology</option>
+                  <option value="orthopedics">Orthopedics</option>
+                  <option value="neurology">Neurology</option>
+                  <option value="dermatology">Dermatology</option>
+              </select>
+          </div>
+          <button type="submit">Book Appointment</button>
+      </form>
+  </div>
+</section>
+
+<!-- Services Section -->
+<section id="services">
+  <div class="container">
+      <h2>Our Services</h2>
+      <ul>
+          <li>Cardiology</li>
+          <li>Orthopedics</li>
+          <li>Neurology</li>
+          <li>Dermatology</li>
+          <li>Emergency Care</li>
+          <li>Diagnostic Services</li>
+      </ul>
+  </div>
+</section>
+
+<!-- Contact Section -->
+<section id="contact">
+  <div class="container">
+      <h2>Contact Us</h2>
+      <p>1-90/q kondapur Street, hitech city, hyderabad, 5000084, Telangana</p>
+      <p>Phone: +91 680 546 9654</p>
+      <p>Email: arogya@hospital.com</p>
+  </div>
+</section>
+
+<!-- Footer Section -->
+<footer>
+  <div class="container">
+      <p>&copy; 2024 Hospital Appointments. All rights reserved.</p>
+  </div>
+</footer>
+</body>
+</html>

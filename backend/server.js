@@ -1,11 +1,11 @@
 // /server.js
 const express = require('express');
 const dotenv = require('dotenv');
+const path = require('path');
 const cors = require('cors');
 const adminRoutes = require('./routes/adminRoutes');
 const swaggerJsDoc = require('swagger-jsdoc');
 const swaggerUi = require('swagger-ui-express');
-
 // Load routes
 // const stateRoutes = require('./routes/stateRoutes');
 // const districtRoutes = require('./routes/districtRoutes');
@@ -14,13 +14,14 @@ const swaggerUi = require('swagger-ui-express');
 // const appointmentRoutes = require('./routes/appointmentRoutes');
 const authRoutes = require('./routes/authRoutes');
 const connectDB = require('./config/db');
-
 // Load environment variables
 dotenv.config();
-
 // Initialize app
 const app = express();
 
+
+
+app.use(express.urlencoded({ extended: true }));
 // Swagger configuration options
 const swaggerOptions = {
   swaggerDefinition: {
@@ -50,6 +51,7 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 // Middleware
 // app.use(cors());
 app.use(express.json());
+app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors({
   origin: 'http://localhost:3000' // Adjust to your frontend's origin
 }));
@@ -58,7 +60,6 @@ app.use('/api/admin', adminRoutes);
 // Connect to MongoDB
 connectDB();
 
-
 // Use routes
 // app.use('/api/states', stateRoutes);
 // app.use('/api/districts', districtRoutes);
@@ -66,6 +67,18 @@ connectDB();
 // app.use('/api/doctors', doctorRoutes);
 // app.use('/api/appointments', appointmentRoutes);
 app.use('/api/auth', authRoutes);
+app.get('/', (req, res)=>{
+  res.sendFile(path.join(__dirname, 'public', 'index.html'))
+})
+// Serve the login page
+app.get('/login', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'login.html'));
+});
+
+// Serve the register page
+app.get('/register', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'register.html'));
+});
 
 // Start the server
 const PORT = process.env.PORT || 5000;
