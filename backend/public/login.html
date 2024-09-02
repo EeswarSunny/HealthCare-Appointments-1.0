@@ -41,7 +41,13 @@
                     <label for="password">Password</label>
                     <input type="password" id="password" name="password" placeholder="password" required>
                 </div>
-                
+                <label for="role">Login as:</label>
+                <span id="roles">
+                    <input type="radio" id="user" name="role" value="user" checked>
+                    <label for="user">User</label>
+                    <input type="radio" id="admin" name="role" value="admin">
+                    <label for="admin">Admin</label>
+                </span>
                 <button class="button" type="submit">Login</button>
                 <p class="forgot-password"><a href="#">Forgot your password?</a></p>
             </form>
@@ -50,17 +56,19 @@
 
     <script>
         document.getElementById('loginForm').addEventListener('submit', async function(event) {
+            console.log("13");
           event.preventDefault();
           const username = document.getElementById('email').value;
           const password = document.getElementById('password').value;
+          const role = document.querySelector('input[name="role"]:checked').value;
             try{
-          const response = await fetch('api/auth/login', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ username, password }),
-          });
+            const response = await fetch('api/auth/login', {
+                method: 'POST',
+                headers: {
+                'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ username, password, role }),
+            });
                 if (!response.ok) {
                 const errorText = await response.text(); // Get response text for debugging
                 throw new Error(errorText);
@@ -68,12 +76,20 @@
 
                 const data = await response.json(); // Handle successful response
                 const token = data.token;
-
-        // Store token in local storage
-        localStorage.setItem('authToken', token);
-          window.location.href = 'http://localhost:5000/';
+                    if (data.success) {
+                        if (data.role === 'admin' && role === 'admin') {
+                            window.location.href = 'admin.html'; // Redirect to admin dashboard
+                        } else {
+                            window.location.href = 'thanku.html'; // Redirect to user dashboard
+                        }
+                    } else {
+                        errorMessage.textContent = result.message;
+                    }
+                // Store token in local storage
+                localStorage.setItem('authToken', token);
+                //   window.location.href = 'http://localhost:5000/';
             }catch(error){
-                console.error('Error:', error.message); // Handle error
+                console.log('Error:', error.message); // Handle error
             }
         });
       </script>

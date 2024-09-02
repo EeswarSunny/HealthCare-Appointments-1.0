@@ -1,45 +1,155 @@
 <!-- admin.html -->
-<h1>Admin Dashboard</h1>
-<h2>User List</h2>
-<table id="userTable">
-  <thead>
-    <tr>
-      <th>ID</th>
-      <th>Email</th>
-    </tr>
-  </thead>
-  <tbody>
-    <!-- User rows will be populated here -->
-  </tbody>
-</table>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
 
-<script>
-  document.addEventListener('DOMContentLoaded', async () => {
-        const token = localStorage.getItem('token'); // Assuming you have a token stored in local storageoken'); // Assuming you have a token stored in local storage
-    try {
-      const response = await fetch('/api/admin/users', { // Ensure this URL matches your backend route
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer ${token}',
-        },
-      });
+        h1, h2 {
+            text-align: center;
+            color: #333;
+        }
 
-      if (!response.ok) {
-        const errorText = await response.text(); // Get response text for debugging
-        throw new Error(errorText);
-      }
+        #userTable {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
 
-      const users = await response.json();
-      const tableBody = document.querySelector('#userTable tbody');
+        #userTable th, #userTable td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
 
-      users.forEach(user => {
-        const row = document.createElement('tr');
-        row.innerHTML = `<td>${user._id}</td><td>${user.email}</td>`;
-        tableBody.appendChild(row);
-      });
-    } catch (error) {
-      console.error('Error:', error.message); // Handle error
-    }
-  });
-</script>
+        #userTable th {
+            background-color: #f2f2f2;
+        }
+
+        #userTable tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        #userTable tr:hover {
+            background-color: #ddd;
+        }
+
+        .delete-btn {
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            border-radius: 3px;
+        }
+
+        .delete-btn:hover {
+            background-color: #c0392b;
+        }
+
+        #errorMessage {
+            color: red;
+            text-align: center;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Admin Dashboard</h1>
+    <h2>User List</h2>
+    <div id="errorMessage"></div>
+    <table id="userTable">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>role</th>
+                <th>USERNAME/EMAIL</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- User rows will be populated here -->
+        </tbody>
+    </table>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            const token = localStorage.getItem('authToken'); // Assuming you have a token stored in local storage
+            console.log('Token:', token); // Check if the token is correct
+            
+            try {
+                const response = await fetch('http://localhost:5000/api/admin/users', { // Ensure this URL matches your backend route
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`, // Use backticks for template literals
+                    },
+                });
+
+                if (!response.ok) {
+                    const errorText = await response.text(); // Get response text for debugging
+                    throw new Error(errorText);
+                }
+
+                const users = await response.json();
+                const tableBody = document.querySelector('#userTable tbody');
+
+                users.forEach(user => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `<td>${user._id}</td><td>${user.role}</td><td>${user.username}</td>
+                        <td><button class="delete-btn" onclick="deleteUser('${user._id}')">Delete</button></td>`;
+                    tableBody.appendChild(row);
+                });
+            } catch (error) {
+                console.error('Error:', error.message);
+                document.getElementById('errorMessage').textContent = error.message; // Show error on the page
+            }
+        });
+
+        async function deleteUser(userId) {
+            const token = localStorage.getItem('authToken'); // Retrieve token from local storage
+            
+            try {
+                const response = await fetch(`http://localhost:5000/api/admin/users/${userId}`, { // Ensure this URL matches your backend route
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`, // Use backticks for template literals
+                    },
+                });
+
+                if (!response.ok) {
+                    const errorText = await response.text(); // Get response text for debugging
+                    throw new Error(errorText);
+                }
+                    // Get all rows in the table body
+                const rows = document.querySelectorAll('#userTable tbody tr');
+                    
+                // Iterate through each row
+                rows.forEach(row => {
+                    // Check if the first cell contains the userId
+                    if (row.cells[0] && row.cells[0].textContent.trim() === userId) {
+                        // Remove the row from the table
+                        row.remove();
+                    }
+                });
+                
+
+                
+                
+            } catch (error) {
+                console.error('Error:', error.message);
+                document.getElementById('errorMessage').textContent = error.message; // Show error on the page
+            }
+        }
+    </script>
+</body>
+</html>

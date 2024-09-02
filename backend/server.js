@@ -6,22 +6,21 @@ const cors = require('cors');
 const adminRoutes = require('./routes/adminRoutes');
 const swaggerJsDoc = require('swagger-jsdoc');
 const swaggerUi = require('swagger-ui-express');
+const authRoutes = require('./routes/authRoutes');
+
 // Load routes
 // const stateRoutes = require('./routes/stateRoutes');
 // const districtRoutes = require('./routes/districtRoutes');
 // const mandalRoutes = require('./routes/mandalRoutes');
 // const doctorRoutes = require('./routes/doctorRoutes');
 // const appointmentRoutes = require('./routes/appointmentRoutes');
-const authRoutes = require('./routes/authRoutes');
 const connectDB = require('./config/db');
 // Load environment variables
 dotenv.config();
 // Initialize app
 const app = express();
-
-
-
 app.use(express.urlencoded({ extended: true }));
+
 // Swagger configuration options
 const swaggerOptions = {
   swaggerDefinition: {
@@ -52,9 +51,9 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 // app.use(cors());
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(cors({
-  origin: 'http://localhost:3000' // Adjust to your frontend's origin
-}));
+// app.use(cors({
+//   origin: 'http://localhost:3000' // Adjust to your frontend's origin
+// }));
 // Use admin routes
 app.use('/api/admin', adminRoutes);
 // Connect to MongoDB

@@ -28,19 +28,22 @@ exports.registerAdmin = async (req, res) => {
 
 
 // Login user
-exports.login = async (req, res) => {
-    const { username, password } = req.body;
-    try {
-        const user = await User.findOne({ username });
-        if (!user || !(await bcryptjs.compare(password, user.password))) {
-            return res.status(401).json({ message: 'Invalid credentials' });
+    exports.login = async (req, res) => {
+        const { username, password } = req.body;
+        try {
+            const user = await User.findOne({ username: username});
+            if (!user || !(await bcryptjs.compare(password, user.password))) {
+                return res.status(401).json({ message: 'Invalid credentials 1' });
+            }
+            const token = jwt.sign({ id: user._id }, 'your_jwt_secret', { expiresIn: '1h' });
+
+            // Send the response with the token and user role
+            return res.json({ success: true, role: user.role, token });
+        
+        } catch (err) {
+            return res.status(500).json({ success:false, message: err.message });
         }
-        const token = jwt.sign({ id: user._id }, 'your_jwt_secret', { expiresIn: '1h' });
-        res.json({ token });
-    } catch (err) {
-        res.status(500).json({ message: err.message });
-    }
-};
+    };
 
 // Logout user (invalidate token on client side)
 exports.logout = (req, res) => { 

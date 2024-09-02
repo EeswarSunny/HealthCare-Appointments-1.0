@@ -63,7 +63,15 @@ input[type=email], input[type=password] {
     font-size: 1.2em;
     margin-top: 5px;
 }
-
+#roles {
+    display: flex;
+    justify-content: space-evenly;
+    width: 70%;
+    padding: 3px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1.2em;
+}
 button {
     background-color: #441231;
     color: rgb(255, 255, 255);
