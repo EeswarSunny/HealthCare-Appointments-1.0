@@ -57,7 +57,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Use admin routes
 app.use('/api/admin', adminRoutes);
 // Connect to MongoDB
-connectDB();
+// connectDB();
 
 // Use routes
 // app.use('/api/states', stateRoutes);
